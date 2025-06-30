@@ -15,13 +15,13 @@ const Footer = () => {
         {/* Liens */}
         <div className="flex flex-col md:flex-row gap-6 text-sm">
           <a href="#home" className="hover:text-blue-400 transition">
-            Accueil
+            Home
           </a>
           <a href="#services" className="hover:text-blue-400 transition">
-            Services
+            About
           </a>
           <a href="#portfolio" className="hover:text-blue-400 transition">
-            Portfolio
+            Services
           </a>
           <a href="#contact" className="hover:text-blue-400 transition">
             Contact
