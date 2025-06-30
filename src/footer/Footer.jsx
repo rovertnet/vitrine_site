@@ -8,7 +8,7 @@ const Footer = () => {
         <div>
           <h2 className="text-2xl font-bold mb-2">MonSite</h2>
           <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} MonSite. Tous droits réservés.
+            © {new Date().getFullYear()} RovertNet. Tous droits réservés.
           </p>
         </div>
 
