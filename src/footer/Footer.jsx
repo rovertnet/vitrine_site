@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
         {/* Logo / Nom */}
         <div>
-          <h2 className="text-2xl font-bold mb-2">MonSite</h2>
+          <h2 className="text-2xl font-bold mb-2">RovertTech</h2>
           <p className="text-gray-400 text-sm">
             © {new Date().getFullYear()} RovertNet. Tous droits réservés.
           </p>
