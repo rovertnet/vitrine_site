@@ -2,7 +2,7 @@
   "rewrites": [{ "source": "/(.*)", "destination": "/" }],
   "redirects": [
     {
-      "source": "/admin",
+      "source": "/",
       "destination": "https://admin.mon-site.com",
       "permanent": true
     }
