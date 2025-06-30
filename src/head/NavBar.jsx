@@ -45,8 +45,8 @@ export default function NavBar() {
       {/* Bandeau supérieur */}
       <div className="bg-blue-700 px-4 md:px-14 py-2.5">
         <div className="flex justify-between items-center text-white text-sm">
-          <span className="font-medium">Welcome to My Website</span>
-          <span>Contact-nous</span>
+          <span className="font-medium">Bienvenu (e) à RovertTech</span>
+          <span>Contactez-nous</span>
         </div>
       </div>
 
@@ -54,7 +54,7 @@ export default function NavBar() {
       <div className="bg-white px-4 md:px-14 py-4 shadow-md border-b border-gray-200">
         <nav className="flex justify-between items-center">
           <div className="text-2xl font-bold text-gray-800">
-            <a href="/">My Website</a>
+            <a href="/">RovertTech</a>
           </div>
 
           {/* Menu desktop */}
