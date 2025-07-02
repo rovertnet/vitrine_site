@@ -17,7 +17,7 @@ const ContactForm = () => {
   };
 
   return (
-    <section className="bg-white py-20 px-6 lg:px-32">
+    <section className="bg-white py-20 px-6 lg:px-32" id="contact">
       <motion.div
         className="max-w-3xl mx-auto text-center"
         initial={{ opacity: 0, y: 30 }}

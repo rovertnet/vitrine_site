@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const HeroSection = () => {
   return (
-    <section className="bg-white pt-48 pb-14 px-6 lg:px-32 text-center lg:text-left">
+    <section className="bg-white pt-48 pb-14 px-6 lg:px-32 text-center lg:text-left" id="home">
       <motion.div
         className="max-w-4xl mx-auto"
         initial={{ opacity: 0, y: 30 }}
