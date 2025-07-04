@@ -7,9 +7,6 @@ const Footer = () => {
         {/* Logo / Nom */}
         <div>
           <h2 className="text-2xl font-bold mb-2">RovertTech</h2>
-          <p className="text-gray-400 text-sm">
-            © {new Date().getFullYear()} RovertNet. Tous droits réservés.
-          </p>
         </div>
 
         {/* Liens */}
@@ -17,10 +14,10 @@ const Footer = () => {
           <a href="#home" className="hover:text-blue-400 transition">
             Home
           </a>
-          <a href="#services" className="hover:text-blue-400 transition">
+          <a href="#about" className="hover:text-blue-400 transition">
             About
           </a>
-          <a href="#portfolio" className="hover:text-blue-400 transition">
+          <a href="#services" className="hover:text-blue-400 transition">
             Services
           </a>
           <a href="#contact" className="hover:text-blue-400 transition">
@@ -41,6 +38,9 @@ const Footer = () => {
           </a>
         </div>
       </div>
+      <p className="text-gray-400 text-sm text-center pt-10">
+        © {new Date().getFullYear()} RovertNet. Tous droits réservés.
+      </p>
     </footer>
   );
 };

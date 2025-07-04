@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import logo from "../assets/logo.png"; // Assurez-vous que le chemin est correct
 
 const sections = ["home", "about", "services", "contact"];
 
@@ -54,21 +55,24 @@ export default function NavBar() {
       <div className="bg-white px-4 md:px-14 py-4 shadow-md border-b border-gray-200">
         <nav className="flex justify-between items-center">
           <div className="text-2xl font-bold text-gray-800">
-            <a href="/">RovertTech</a>
+            <a href="/">
+              <img src={logo} alt="logo" className=" w-14 h-14" />
+            </a>
           </div>
 
           {/* Menu desktop */}
           <ul className="hidden md:flex space-x-6 text-gray-600 font-medium">
             {sections.map((sec) => (
               <li key={sec}>
-                <button
+                <a 
+                  href="“#"
                   onClick={() => scrollTo(sec)}
                   className={`block w-full text-left hover:text-gray-900 ${
                     activeSection === sec ? "text-blue-600 font-bold" : ""
                   }`}
                 >
                   {sec.charAt(0).toUpperCase() + sec.slice(1)}
-                </button>
+                </a>
               </li>
             ))}
           </ul>
