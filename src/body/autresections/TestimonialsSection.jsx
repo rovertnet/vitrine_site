@@ -43,7 +43,7 @@ const TestimonialsEmbla = () => {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="bg-gray-50 py-20 px-6 lg:px-32">
+    <section className="bg-gray-50 py-20 px-4 sm:px-6 lg:px-32">
       <div className="text-center max-w-3xl mx-auto mb-12">
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
           Ce que disent nos clients
@@ -53,12 +53,13 @@ const TestimonialsEmbla = () => {
         </p>
       </div>
 
+      {/* Slider */}
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-8">
+        <div className="flex gap-4 sm:gap-6 md:gap-8">
           {testimonials.map((item, index) => (
             <motion.div
               key={index}
-              className="min-w-full md:min-w-[50%] lg:min-w-[33%] flex-shrink-0 bg-white rounded-2xl shadow-md border border-gray-200 p-6"
+              className="flex-shrink-0 w-[90%] sm:w-[70%] md:w-[50%] lg:w-[33%] snap-start bg-white rounded-2xl shadow-md border border-gray-200 p-6 mx-auto"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: index * 0.1 }}

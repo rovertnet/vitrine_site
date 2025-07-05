@@ -1,5 +1,5 @@
-import useEmblaCarousel from "embla-carousel-react";
 import { useEffect, useState, useCallback } from "react";
+import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 
@@ -23,7 +23,10 @@ const steps = [
 ];
 
 export default function ProcessTimelineHorizontal() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false });
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: false,
+    align: "center",
+  });
   const [selected, setSelected] = useState(0);
 
   const onSelect = useCallback(() => {
@@ -38,7 +41,7 @@ export default function ProcessTimelineHorizontal() {
   }, [emblaApi, onSelect]);
 
   return (
-    <section className="bg-gray-50 py-20 px-6 lg:px-32">
+    <section className="bg-gray-50 py-20 px-4 sm:px-6 lg:px-32">
       {/* ---- Titre ---- */}
       <motion.div
         className="text-center mb-12"
@@ -57,11 +60,11 @@ export default function ProcessTimelineHorizontal() {
 
       {/* ---- Slider Embla ---- */}
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-6">
+        <div className="flex gap-4 sm:gap-6 md:gap-8">
           {steps.map((step, i) => (
             <motion.div
               key={i}
-              className="min-w-[75%] sm:min-w-[45%] lg:min-w-[25%] bg-white rounded-2xl shadow p-6 flex-shrink-0 border border-gray-200"
+              className="flex-shrink-0 w-[90%] sm:w-[60%] md:w-[40%] lg:w-[25%] snap-start bg-white rounded-2xl shadow p-6 border border-gray-200 mx-auto"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.1 }}
