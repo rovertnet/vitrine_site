@@ -3,7 +3,7 @@ import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import logo from "../assets/logo.png"; // Assurez-vous que le chemin est correct
 
-const sections = ["home", "about", "services", "contact"];
+const sections = ["Accueil", "A propos", "Services", "Contact"];
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
