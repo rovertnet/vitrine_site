@@ -9,7 +9,7 @@ const projects = [
       "Développé avec React et Stripe pour une boutique en ligne performante.",
     details:
       "Ce projet comprend un système de panier, paiement sécurisé, gestion d'inventaire et interface admin.",
-    image: "../../../public/p1.jpg",
+    image: "https://rovert-tech.vercel.app/p1.jpg",
     link: "#",
     category: "E-commerce",
   },
@@ -18,7 +18,7 @@ const projects = [
     description: "Un site vitrine responsive et élégant.",
     details:
       "Conception de A à Z avec animation, navigation fluide, SEO et hébergement optimisé.",
-    image: "../../../public/p2.jpg",
+    image: "https://rovert-tech.vercel.app/p2.jpg",
     link: "#",
     category: "Vitrine",
   },
@@ -27,7 +27,7 @@ const projects = [
     description: "Page d'atterrissage hautement convertible.",
     details:
       "Contient des sections marketing, appel à l'action, formulaire intégré, responsive design.",
-    image: "../../../public/p3.jpg",
+    image: "https://rovert-tech.vercel.app/p3.jpg",
     link: "#",
     category: "Landing",
   },
