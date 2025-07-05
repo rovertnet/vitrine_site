@@ -13,10 +13,12 @@ import TeamSection from './body/autresections/TeamSection';
 import ProcessTimeline from './body/autresections/ProcessTimeline';
 import FAQSection from './body/autresections/FAQSection';
 import PartnersMarquee from './body/autresections/PartnersMarquee';
+import EmailPopup from './body/autresections/EmailPopup';
 
 function App() {
   return (
     <>
+      <EmailPopup />
       <NavBar />
       <HeroSection />
       <ServicesSection />
