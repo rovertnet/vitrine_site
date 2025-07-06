@@ -137,14 +137,11 @@ export default function NavBar() {
 
           {/* Auth desktop */}
           <div className="hidden md:flex items-center space-x-4">
-            <a href="/login" className="text-gray-600 hover:text-gray-900">
-              Login
-            </a>
             <a
-              href="/signup"
+              href="/contact"
               className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
             >
-              Sign Up
+              Contactez-nous
             </a>
           </div>
 
