@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import {
+  Menu,
+  X,
+  Facebook,
+  Instagram,
+  Linkedin,
+  Twitter,
+  Phone,
+} from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import logo from "../assets/logo.png"; // Assurez-vous que le chemin est correct
 
@@ -30,24 +38,75 @@ export default function NavBar() {
   }, []);
 
   const scrollTo = (id) => {
-    setIsOpen(false); // ← Ferme le menu mobile
+    setIsOpen(false); // Ferme le menu mobile
     const el = document.getElementById(id);
     if (el) {
       window.scrollTo({
-        top: el.offsetTop - 80, // ajuste selon la hauteur de ta navbar
+        top: el.offsetTop - 80,
         behavior: "smooth",
       });
     }
   };
-  
+
+  // Animation des icônes
+  const iconVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.1, duration: 0.3 },
+    }),
+  };
 
   return (
     <header className="fixed w-full z-50 top-0 left-0">
       {/* Bandeau supérieur */}
       <div className="bg-blue-700 px-4 md:px-14 py-2.5">
         <div className="flex justify-between items-center text-white text-sm">
-          <span className="font-medium">Bienvenu (e) à RovertTech</span>
-          <span>Contactez-nous</span>
+          <span className="font-medium">Bienvenu(e) à RovertTech</span>
+          <div className="flex items-center gap-4">
+            <span className="hidden sm:inline">Contactez-nous :</span>
+            <a
+              href="https://wa.me/243XXXXXXXXX"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="WhatsApp"
+            >
+              <Phone size={16} className="hover:text-green-400" />
+            </a>
+            <a
+              href="https://facebook.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Facebook"
+            >
+              <Facebook size={16} className="hover:text-blue-400" />
+            </a>
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+            >
+              <Instagram size={16} className="hover:text-pink-400" />
+            </a>
+            <a
+              href="https://linkedin.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="LinkedIn"
+            >
+              <Linkedin size={16} className="hover:text-blue-300" />
+            </a>
+            <a
+              href="https://twitter.com"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Twitter"
+            >
+              <Twitter size={16} className="hover:text-sky-400" />
+            </a>
+          </div>
         </div>
       </div>
 
@@ -56,7 +115,7 @@ export default function NavBar() {
         <nav className="flex justify-between items-center">
           <div className="text-2xl font-bold text-gray-800">
             <a href="/">
-              <img src={logo} alt="logo" className=" w-12 h-12" />
+              <img src={logo} alt="logo" className="w-12 h-12" />
             </a>
           </div>
 
@@ -64,15 +123,14 @@ export default function NavBar() {
           <ul className="hidden md:flex space-x-6 text-gray-600 font-medium">
             {sections.map((sec) => (
               <li key={sec}>
-                <a 
-                  href="“#"
+                <button
                   onClick={() => scrollTo(sec)}
                   className={`block w-full text-left hover:text-gray-900 ${
                     activeSection === sec ? "text-blue-600 font-bold" : ""
                   }`}
                 >
                   {sec.charAt(0).toUpperCase() + sec.slice(1)}
-                </a>
+                </button>
               </li>
             ))}
           </ul>
@@ -124,6 +182,7 @@ export default function NavBar() {
                   </li>
                 ))}
               </ul>
+
               <div className="pt-2 border-t border-gray-200">
                 <a
                   href="/login"
@@ -137,6 +196,28 @@ export default function NavBar() {
                 >
                   Sign Up
                 </a>
+              </div>
+
+              {/* Réseaux sociaux animés */}
+              <div className="flex justify-center gap-4 mt-4">
+                {[Phone, Facebook, Instagram, Linkedin, Twitter].map(
+                  (Icon, i) => (
+                    <motion.a
+                      key={i}
+                      href="#"
+                      target="_blank"
+                      rel="noreferrer"
+                      custom={i}
+                      initial="hidden"
+                      animate="visible"
+                      variants={iconVariants}
+                      whileHover={{ scale: 1.2 }}
+                      className="text-gray-500"
+                    >
+                      <Icon size={20} />
+                    </motion.a>
+                  )
+                )}
               </div>
             </motion.div>
           )}
