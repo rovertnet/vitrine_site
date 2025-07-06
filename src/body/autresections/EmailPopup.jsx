@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import popupImage from "../assets/newsletter.jpg"; // Ton image locale
 
 export default function EmailPopup() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // Bloquer le scroll quand le popup est ouvert
+  // Bloquer le scroll derrière le popup
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -33,7 +34,7 @@ export default function EmailPopup() {
         >
           {/* Contenu du pop-up */}
           <motion.div
-            className="bg-white rounded-lg shadow-lg w-full max-w-md overflow-hidden relative flex flex-col"
+            className="bg-white rounded-lg shadow-lg w-full max-w-2xl overflow-hidden relative flex flex-col md:flex-row"
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.8, opacity: 0 }}
@@ -48,22 +49,22 @@ export default function EmailPopup() {
             </button>
 
             {/* Image */}
-            <div className="w-full h-40 sm:h-52">
+            <div className="md:w-1/2 w-full h-40 md:h-auto">
               <img
-                src="https://rovert-tech.vercel.app/em1.jpg"
+                src={popupImage}
                 alt="Popup Illustration"
                 className="w-full h-full object-cover"
               />
             </div>
 
             {/* Formulaire */}
-            <div className="p-5 flex flex-col justify-center">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">
+            <div className="p-6 md:w-1/2 w-full flex flex-col justify-center">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
                 Rejoignez notre newsletter
               </h2>
-              <p className="text-gray-600 mb-4 text-sm">
+              <p className="text-gray-600 mb-4 text-sm md:text-base">
                 Entrez votre adresse e‑mail pour recevoir nos dernières
-                nouveautés. Vous pouvez ignorer si vous préférez.
+                nouveautés et conseils. Vous pouvez ignorer si vous préférez.
               </p>
               <form
                 onSubmit={(e) => {
