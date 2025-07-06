@@ -182,16 +182,10 @@ export default function NavBar() {
 
               <div className="pt-2 border-t border-gray-200">
                 <a
-                  href="/login"
-                  className="block text-gray-600 py-2 hover:text-gray-900"
-                >
-                  Login
-                </a>
-                <a
                   href="/signup"
                   className="block w-full bg-blue-600 text-white text-center py-2 rounded-full hover:bg-blue-700"
                 >
-                  Sign Up
+                  Contactez-nous
                 </a>
               </div>
 
