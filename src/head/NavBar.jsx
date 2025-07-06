@@ -197,6 +197,28 @@ export default function NavBar() {
                   Sign Up
                 </a>
               </div>
+
+              {/* Réseaux sociaux animés */}
+              <div className="flex justify-center gap-4 mt-4">
+                {[Phone, Facebook, Instagram, Linkedin, Twitter].map(
+                  (Icon, i) => (
+                    <motion.a
+                      key={i}
+                      href="#"
+                      target="_blank"
+                      rel="noreferrer"
+                      custom={i}
+                      initial="hidden"
+                      animate="visible"
+                      variants={iconVariants}
+                      whileHover={{ scale: 1.2 }}
+                      className="text-gray-500"
+                    >
+                      <Icon size={20} />
+                    </motion.a>
+                  )
+                )}
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
