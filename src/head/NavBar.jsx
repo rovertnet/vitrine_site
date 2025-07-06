@@ -199,7 +199,7 @@ export default function NavBar() {
               </div>
 
               {/* Réseaux sociaux animés */}
-              <div className="flex justify-center gap-4 mt-4">
+              <div className="md:flex justify-center gap-4 mt-4 hidden ">
                 {[Phone, Facebook, Instagram, Linkedin, Twitter].map(
                   (Icon, i) => (
                     <motion.a
