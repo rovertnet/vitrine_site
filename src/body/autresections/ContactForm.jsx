@@ -2,19 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 
 const ContactForm = () => {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e) =>
-    setForm({ ...form, [e.target.name]: e.target.value });
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // 👉 ici tu peux envoyer le formulaire vers une API ou EmailJS
-    console.log("Données envoyées :", form);
-    setSubmitted(true);
-  };
 
   return (
     <section className="bg-white py-20 px-6 lg:px-32" id="contact">
@@ -34,12 +22,14 @@ const ContactForm = () => {
       </motion.div>
 
       <motion.form
-        onSubmit={handleSubmit}
+        action="https://formspree.io/f/xeokwrvo"
+        method="POST"
         className="max-w-2xl mx-auto space-y-6"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         viewport={{ once: true }}
+        onSubmit={() => setSubmitted(true)}
       >
         <div>
           <label
@@ -53,8 +43,6 @@ const ContactForm = () => {
             name="name"
             id="name"
             required
-            value={form.name}
-            onChange={handleChange}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
         </div>
@@ -71,8 +59,6 @@ const ContactForm = () => {
             name="email"
             id="email"
             required
-            value={form.email}
-            onChange={handleChange}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
         </div>
@@ -89,8 +75,6 @@ const ContactForm = () => {
             id="message"
             rows={5}
             required
-            value={form.message}
-            onChange={handleChange}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
         </div>

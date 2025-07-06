@@ -1,99 +1,102 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import popupImage from "../assets/newsletter.jpg"; // Ton image locale
 
-const ContactForm = () => {
-  const [submitted, setSubmitted] = useState(false);
+export default function EmailPopup() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  // Bloquer le scroll derrière le popup
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isOpen]);
+
+  // Afficher seulement la première fois
+  useEffect(() => {
+    const hasSeenPopup = localStorage.getItem("hasSeenPopup");
+    if (!hasSeenPopup) {
+      setIsOpen(true);
+      localStorage.setItem("hasSeenPopup", "true");
+    }
+  }, []);
 
   return (
-    <section className="bg-white py-20 px-6 lg:px-32" id="contact">
-      <motion.div
-        className="max-w-3xl mx-auto text-center"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        viewport={{ once: true }}
-      >
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-          Contactez-nous
-        </h2>
-        <p className="text-gray-600 text-lg mb-12">
-          Discutons de votre projet ou posez-nous vos questions.
-        </p>
-      </motion.div>
-
-      <motion.form
-        action="https://formspree.io/f/xeokwrvo"
-        method="POST"
-        className="max-w-2xl mx-auto space-y-6"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.2 }}
-        viewport={{ once: true }}
-        onSubmit={() => setSubmitted(true)}
-      >
-        <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Nom complet
-          </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            required
-            className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
-          />
-        </div>
-
-        <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Adresse email
-          </label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            required
-            className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
-          />
-        </div>
-
-        <div>
-          <label
-            htmlFor="message"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Message
-          </label>
-          <textarea
-            name="message"
-            id="message"
-            rows={5}
-            required
-            className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-blue-700 transition"
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
-          Envoyer
-        </button>
+          {/* Contenu du pop-up */}
+          <motion.div
+            className="bg-white rounded-lg shadow-lg w-full max-w-2xl overflow-hidden relative flex flex-col md:flex-row"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {/* Bouton de fermeture */}
+            <button
+              onClick={() => setIsOpen(false)}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-800 z-10 text-2xl"
+            >
+              ✕
+            </button>
 
-        {submitted && (
-          <p className="text-green-600 mt-4 font-medium">
-            ✅ Merci pour votre message ! Nous vous répondrons rapidement.
-          </p>
-        )}
-      </motion.form>
-    </section>
+            {/* Image */}
+            <div className="md:w-1/2 w-full h-40 md:h-auto">
+              <img
+                src={popupImage}
+                alt="Popup Illustration"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* Formulaire */}
+            <div className="p-6 md:w-1/2 w-full flex flex-col justify-center">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
+                Rejoignez notre newsletter
+              </h2>
+              <p className="text-gray-600 mb-4 text-sm md:text-base">
+                Entrez votre adresse e‑mail pour recevoir nos dernières
+                nouveautés et conseils. Vous pouvez ignorer si vous préférez.
+              </p>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setIsOpen(false);
+                  alert("Merci pour votre e‑mail !");
+                }}
+                className="flex flex-col gap-3"
+              >
+                <input
+                  type="email"
+                  placeholder="Votre e‑mail"
+                  className="border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring focus:ring-blue-500 text-sm"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="bg-blue-600 text-white rounded-md py-2 hover:bg-blue-700 transition text-sm"
+                >
+                  S'inscrire
+                </button>
+              </form>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="mt-3 text-xs text-gray-500 hover:underline"
+              >
+                Fermer sans renseigner
+              </button>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
-};
-
-export default ContactForm;
+}
