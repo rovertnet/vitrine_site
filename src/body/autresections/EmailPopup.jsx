@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import popupImage from "../assets/newsletter.jpg"; // Ton image locale
+import { motion, AnimatePresence } from "framer-motion";// Ton image locale
 
 export default function EmailPopup() {
   const [isOpen, setIsOpen] = useState(false);
