@@ -39,7 +39,7 @@ const StatsSection = () => {
             <h3 className="text-4xl font-bold text-blue-600 mb-2">
               <CountUp
                 end={item.value}
-                duration={2}
+                duration={7}
                 suffix={item.suffix || ""}
               />
             </h3>

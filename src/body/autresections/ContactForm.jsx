@@ -1,8 +1,41 @@
-import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 
-const ContactForm = () => {
-  const [submitted, setSubmitted] = useState(false);
+// Fonction pour envoyer les données via fetch
+const sendContactForm = async (data) => {
+  const response = await fetch("https://formspree.io/f/xeokwrvo", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error("Une erreur est survenue");
+  }
+
+  return response.json();
+};
+
+export default function ContactForm() {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  const mutation = useMutation({
+    mutationFn: sendContactForm,
+    onSuccess: () => reset(),
+  });
+
+  const onSubmit = (data) => {
+    mutation.mutate(data);
+  };
 
   return (
     <section className="bg-white py-20 px-6 lg:px-32" id="contact">
@@ -22,15 +55,14 @@ const ContactForm = () => {
       </motion.div>
 
       <motion.form
-        action="https://formspree.io/f/xeokwrvo"
-        method="POST"
+        onSubmit={handleSubmit(onSubmit)}
         className="max-w-2xl mx-auto space-y-6"
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         viewport={{ once: true }}
-        onSubmit={() => setSubmitted(true)}
       >
+        {/* Nom complet */}
         <div>
           <label
             htmlFor="name"
@@ -40,13 +72,16 @@ const ContactForm = () => {
           </label>
           <input
             type="text"
-            name="name"
             id="name"
-            required
+            {...register("name", { required: "Ce champ est requis."  })}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
+          {errors.name && (
+            <p className="text-red-600 text-sm mt-1">{errors.name.message}</p>
+          )}
         </div>
 
+        {/* Email */}
         <div>
           <label
             htmlFor="email"
@@ -56,13 +91,22 @@ const ContactForm = () => {
           </label>
           <input
             type="email"
-            name="email"
             id="email"
-            required
+            {...register("email", {
+              required: "Email requis.",
+              pattern: {
+                value: /^\S+@\S+$/i,
+                message: "Email invalide",
+              },
+            })}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
+          {errors.email && (
+            <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>
+          )}
         </div>
 
+        {/* Message */}
         <div>
           <label
             htmlFor="message"
@@ -71,29 +115,39 @@ const ContactForm = () => {
             Message
           </label>
           <textarea
-            name="message"
             id="message"
             rows={5}
-            required
+            {...register("message", { required: "Message requis." })}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
+          {errors.message && (
+            <p className="text-red-600 text-sm mt-1">
+              {errors.message.message}
+            </p>
+          )}
         </div>
 
+        {/* Bouton */}
         <button
           type="submit"
-          className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-blue-700 transition"
+          disabled={mutation.isLoading}
+          className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-xl hover:bg-blue-700 transition disabled:opacity-50"
         >
-          Envoyer
+          {mutation.isLoading ? "Envoi en cours..." : "Envoyer"}
         </button>
 
-        {submitted && (
+        {/* Feedback */}
+        {mutation.isSuccess && (
           <p className="text-green-600 mt-4 font-medium">
             ✅ Merci pour votre message ! Nous vous répondrons rapidement.
+          </p>
+        )}
+        {mutation.isError && (
+          <p className="text-red-600 mt-4 font-medium">
+            ❌ Une erreur est survenue. Veuillez réessayer.
           </p>
         )}
       </motion.form>
     </section>
   );
-};
-
-export default ContactForm;
+}
