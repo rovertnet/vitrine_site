@@ -73,7 +73,7 @@ export default function ContactForm() {
           <input
             type="text"
             id="name"
-            {...register("name", { required: "Ce champ est requis."  })}
+            {...register("name", { required: "Votre obligé de renseigner votre nom."  })}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
           {errors.name && (
@@ -93,10 +93,10 @@ export default function ContactForm() {
             type="email"
             id="email"
             {...register("email", {
-              required: "Email requis.",
+              required: "Vous devez renseigner votre email.",
               pattern: {
                 value: /^\S+@\S+$/i,
-                message: "Email invalide",
+                message: "Adresse email est invalide.",
               },
             })}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
@@ -117,7 +117,7 @@ export default function ContactForm() {
           <textarea
             id="message"
             rows={5}
-            {...register("message", { required: "Message requis." })}
+            {...register("message", { required: "Vous êtes obligé de nous dire quelque chose" })}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
           {errors.message && (
