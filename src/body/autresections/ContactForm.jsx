@@ -73,7 +73,7 @@ export default function ContactForm() {
           <input
             type="text"
             id="name"
-            {...register("name", { required: "Votre obligé de renseigner votre nom."  })}
+            {...register("name", { required: "Vous êtes obligé de renseigner votre nom."  })}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
           {errors.name && (
