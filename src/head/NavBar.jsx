@@ -138,7 +138,7 @@ export default function NavBar() {
           {/* Auth desktop */}
           <div className="hidden md:flex items-center space-x-4">
             <a
-              href="/contact"
+              href="/#contact"
               className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
             >
               Contactez-nous
@@ -182,7 +182,7 @@ export default function NavBar() {
 
               <div className="pt-2 border-t border-gray-200">
                 <a
-                  href="/signup"
+                  href="/#contact"
                   className="block w-full bg-blue-600 text-white text-center py-2 rounded-full hover:bg-blue-700"
                 >
                   Contactez-nous
