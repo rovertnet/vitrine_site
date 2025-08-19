@@ -1,0 +1,79 @@
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+
+const NewsletterPopup = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [email, setEmail] = useState("");
+
+  // ✅ Ouvrir automatiquement après 5 secondes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsOpen(true);
+    }, 5000); // 5000 ms = 5s
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Email envoyé :", email);
+    setIsOpen(false); // ferme le pop-up après envoi
+  };
+
+  return (
+    <div>
+      {/* Pop-up */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full relative"
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+            >
+              {/* Bouton fermer */}
+              <button
+                onClick={() => setIsOpen(false)}
+                className="absolute top-3 right-3 text-gray-600 hover:text-black text-xl"
+              >
+                ✕
+              </button>
+
+              <h2 className="text-2xl font-bold text-center mb-4">
+                📩 Abonnez-vous à notre Newsletter
+              </h2>
+              <p className="text-gray-600 text-center mb-6">
+                Recevez nos dernières actualités et offres exclusives.
+              </p>
+
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <input
+                  type="email"
+                  placeholder="Votre adresse email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-orange-500"
+                />
+                <button
+                  type="submit"
+                  className="bg-orange-600 text-white py-2 rounded-lg font-medium hover:bg-orange-700 transition"
+                >
+                  S'abonner
+                </button>
+              </form>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+export default NewsletterPopup;

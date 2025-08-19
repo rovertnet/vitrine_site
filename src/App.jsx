@@ -14,6 +14,7 @@ import ProcessTimeline from './body/autresections/ProcessTimeline';
 import FAQSection from './body/autresections/FAQSection';
 import PartnersMarquee from './body/autresections/PartnersMarquee';
 import EmailPopup from './body/autresections/EmailPopup';
+import NewsletterPopup from './footer/newsletter/NewsletterPopup';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       <ContactForm />
       <PartnersMarquee />
       <Footer />
+      <NewsletterPopup />
       <ScrollToTopButton />
     </>
   );
