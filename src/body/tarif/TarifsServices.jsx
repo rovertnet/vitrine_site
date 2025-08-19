@@ -34,6 +34,12 @@ const services = [
     description:
       "Accompagnement et conseils adaptés à votre projet ou entreprise.",
   },
+  {    id: 6,
+    name: "Formation",
+    price: "Sur devis",
+    description:
+      "Formations personnalisées en développement web, marketing digital et plus.",
+  },
 ];
 
 const TarifsServices = () => (
