@@ -5,13 +5,13 @@ const NewsletterPopup = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
 
-  // ✅ Ouvrir automatiquement après 5 secondes
+  // ✅ Afficher le pop-up toutes les 30 secondes
   useEffect(() => {
-    const timer = setTimeout(() => {
+    const interval = setInterval(() => {
       setIsOpen(true);
-    }, 5000); // 5000 ms = 5s
+    }, 30000); // 30000 ms = 30s
 
-    return () => clearTimeout(timer);
+    return () => clearInterval(interval);
   }, []);
 
   const handleSubmit = (e) => {
