@@ -1,23 +1,16 @@
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
+import emailjs from "@emailjs/browser";
 
-// Fonction pour envoyer les données via fetch
+// Fonction pour envoyer les données via EmailJS
 const sendContactForm = async (data) => {
-  const response = await fetch("https://formspree.io/f/xeokwrvo", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
-    throw new Error("Une erreur est survenue");
-  }
-
-  return response.json();
+  return emailjs.send(
+    "service_x123abc", // Remplace par ton Service ID
+    "template_abcd123", // Remplace par ton Template ID
+    data,
+    "8FhD_abcXYZ" // Remplace par ta Public Key
+  );
 };
 
 export default function ContactForm() {
@@ -73,11 +66,15 @@ export default function ContactForm() {
           <input
             type="text"
             id="name"
-            {...register("name", { required: "Vous êtes obligé de renseigner votre nom."  })}
+            {...register("from_name", {
+              required: "Vous êtes obligé de renseigner votre nom.",
+            })}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
-          {errors.name && (
-            <p className="text-red-600 text-sm mt-1">{errors.name.message}</p>
+          {errors.from_name && (
+            <p className="text-red-600 text-sm mt-1">
+              {errors.from_name.message}
+            </p>
           )}
         </div>
 
@@ -92,7 +89,7 @@ export default function ContactForm() {
           <input
             type="email"
             id="email"
-            {...register("email", {
+            {...register("from_email", {
               required: "Vous devez renseigner votre email.",
               pattern: {
                 value: /^\S+@\S+$/i,
@@ -101,8 +98,10 @@ export default function ContactForm() {
             })}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
-          {errors.email && (
-            <p className="text-red-600 text-sm mt-1">{errors.email.message}</p>
+          {errors.from_email && (
+            <p className="text-red-600 text-sm mt-1">
+              {errors.from_email.message}
+            </p>
           )}
         </div>
 
@@ -117,7 +116,9 @@ export default function ContactForm() {
           <textarea
             id="message"
             rows={5}
-            {...register("message", { required: "Vous êtes obligé de nous dire quelque chose" })}
+            {...register("message", {
+              required: "Vous êtes obligé de nous dire quelque chose",
+            })}
             className="mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-600 focus:border-blue-600 p-3"
           />
           {errors.message && (
