@@ -10,9 +10,9 @@ return emailjs.send(
   "service_nxjmxah", // Service ID
   "template_lxeffid", // Template ID
   {
-    from_name: formData.name,
-    from_email: formData.email,
-    message: formData.message,
+    from_name: data.name,
+    from_email: data.email,
+    message: data.message,
   },
   "cPHGWeChbZcSymYzx"
 );
