@@ -2,14 +2,15 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
 
 // Fonction pour envoyer les données via EmailJS
 const sendContactForm = async (data) => {
   return emailjs.send(
-    "service_x123abc", // Remplace par ton Service ID
-    "template_abcd123", // Remplace par ton Template ID
+    "service_x123abc", // Service ID
+    "template_abcd123", // Template ID
     data,
-    "8FhD_abcXYZ" // Remplace par ta Public Key
+    "8FhD_abcXYZ" // Public Key
   );
 };
 
@@ -23,7 +24,13 @@ export default function ContactForm() {
 
   const mutation = useMutation({
     mutationFn: sendContactForm,
-    onSuccess: () => reset(),
+    onSuccess: () => {
+      reset();
+      toast.success("✅ Message envoyé avec succès !");
+    },
+    onError: (err) => {
+      toast.error("❌ Une erreur est survenue. Veuillez réessayer.");
+    },
   });
 
   const onSubmit = (data) => {
@@ -57,15 +64,11 @@ export default function ContactForm() {
       >
         {/* Nom complet */}
         <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label className="block text-sm font-medium text-gray-700">
             Nom complet
           </label>
           <input
             type="text"
-            id="name"
             {...register("from_name", {
               required: "Vous êtes obligé de renseigner votre nom.",
             })}
@@ -80,15 +83,11 @@ export default function ContactForm() {
 
         {/* Email */}
         <div>
-          <label
-            htmlFor="email"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label className="block text-sm font-medium text-gray-700">
             Adresse email
           </label>
           <input
             type="email"
-            id="email"
             {...register("from_email", {
               required: "Vous devez renseigner votre email.",
               pattern: {
@@ -107,14 +106,10 @@ export default function ContactForm() {
 
         {/* Message */}
         <div>
-          <label
-            htmlFor="message"
-            className="block text-sm font-medium text-gray-700"
-          >
+          <label className="block text-sm font-medium text-gray-700">
             Message
           </label>
           <textarea
-            id="message"
             rows={5}
             {...register("message", {
               required: "Vous êtes obligé de nous dire quelque chose",
@@ -136,18 +131,6 @@ export default function ContactForm() {
         >
           {mutation.isLoading ? "Envoi en cours..." : "Envoyer"}
         </button>
-
-        {/* Feedback */}
-        {mutation.isSuccess && (
-          <p className="text-green-600 mt-4 font-medium">
-            ✅ Merci pour votre message ! Nous vous répondrons rapidement.
-          </p>
-        )}
-        {mutation.isError && (
-          <p className="text-red-600 mt-4 font-medium">
-            ❌ Une erreur est survenue. Veuillez réessayer.
-          </p>
-        )}
       </motion.form>
     </section>
   );

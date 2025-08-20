@@ -16,10 +16,12 @@ import PartnersMarquee from './body/autresections/PartnersMarquee';
 import EmailPopup from './body/autresections/EmailPopup';
 import NewsletterPopup from './footer/newsletter/NewsletterPopup';
 import TarifsServices from './body/tarif/TarifsServices';
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
+      <Toaster position="top-right" reverseOrder={false} />
       <EmailPopup />
       <NavBar />
       <HeroSection />
