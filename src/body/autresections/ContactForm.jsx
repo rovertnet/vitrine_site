@@ -6,17 +6,18 @@ import toast from "react-hot-toast";
 
 // Fonction pour envoyer les données via EmailJS
 const sendContactForm = async (data) => {
-return emailjs.send(
-  "service_nxjmxah", // Service ID
-  "template_lxeffid", // Template ID
-  {
-    from_name: data.name,
-    from_email: data.email,
-    message: data.message,
-  },
-  "cPHGWeChbZcSymYzx"
-);
+  return emailjs.send(
+    "service_nxjmxah", // Service ID
+    "template_lxeffid", // Template ID
+    {
+      from_name: data.from_name, // ✅ cohérent avec register("from_name")
+      from_email: data.from_email, // ✅ cohérent avec register("from_email")
+      message: data.message,
+    },
+    "cPHGWeChbZcSymYzx" // Public Key
+  );
 };
+
 
 export default function ContactForm() {
   const {
