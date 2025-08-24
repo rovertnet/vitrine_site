@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import emailjs from "@emailjs/browser";
 
 const services = [
   {
@@ -49,11 +50,7 @@ const services = [
 const TarifsServices = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const formRef = useRef();
 
   const handleOpenPopup = (service) => {
     setSelectedService(service);
@@ -63,18 +60,23 @@ const TarifsServices = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!formData.name || !formData.email || !formData.message) {
-      alert("Veuillez remplir tous les champs.");
-      return;
-    }
-
-    console.log("Demande envoyée :", {
-      service: selectedService.name,
-      ...formData,
-    });
-
-    setFormData({ name: "", email: "", message: "" });
-    setIsOpen(false);
+    emailjs
+      .sendForm(
+        "service_xxxxxx", // 🔹 ton Service ID
+        "template_yyyyyy", // 🔹 ton Template ID
+        formRef.current,
+        "publicKey_zzzzzz" // 🔹 ta Public Key
+      )
+      .then(
+        () => {
+          alert("✅ Votre demande a bien été envoyée !");
+          setIsOpen(false);
+        },
+        (error) => {
+          alert("❌ Une erreur est survenue, réessayez.");
+          console.error(error);
+        }
+      );
   };
 
   return (
@@ -143,33 +145,34 @@ const TarifsServices = () => {
                 <span className="font-semibold">{selectedService?.name}</span>
               </p>
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              {/* Formulaire EmailJS */}
+              <form
+                ref={formRef}
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-4"
+              >
+                <input
+                  type="hidden"
+                  name="service"
+                  value={selectedService?.name || ""}
+                />
                 <input
                   type="text"
+                  name="from_name"
                   placeholder="Votre nom"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
                   required
                   className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <input
                   type="email"
+                  name="from_email"
                   placeholder="Votre email"
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
                   required
                   className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
                 <textarea
+                  name="message"
                   placeholder="Décrivez votre projet..."
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
                   required
                   rows={4}
                   className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
