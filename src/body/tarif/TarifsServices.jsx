@@ -1,6 +1,8 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import emailjs from "@emailjs/browser";
+import toast from "react-hot-toast";
+import { useForm } from "react-hook-form";
 
 const services = [
   {
@@ -50,30 +52,41 @@ const services = [
 const TarifsServices = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedService, setSelectedService] = useState(null);
-  const formRef = useRef();
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
   const handleOpenPopup = (service) => {
     setSelectedService(service);
     setIsOpen(true);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  // ✅ fonction pour gérer l'envoi
+  const onSubmit = (data) => {
     emailjs
-      .sendForm(
-        "service_xxxxxx", // 🔹 ton Service ID
-        "template_yyyyyy", // 🔹 ton Template ID
-        formRef.current,
-        "publicKey_zzzzzz" // 🔹 ta Public Key
+      .send(
+        "service_nxjmxah", // Service ID
+        "template_lxeffid", // Template ID
+        {
+          from_name: data.from_name,
+          from_email: data.from_email,
+          message: data.message,
+          service: selectedService?.name,
+        },
+        "cPHGWeChbZcSymYzx" // Public Key
       )
       .then(
         () => {
-          alert("✅ Votre demande a bien été envoyée !");
+          toast.success("✅ Message envoyé avec succès !");
+          reset();
           setIsOpen(false);
         },
         (error) => {
-          alert("❌ Une erreur est survenue, réessayez.");
+          toast.error("❌ Une erreur est survenue, réessayez.");
           console.error(error);
         }
       );
@@ -147,36 +160,43 @@ const TarifsServices = () => {
 
               {/* Formulaire EmailJS */}
               <form
-                ref={formRef}
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmit(onSubmit)}
                 className="flex flex-col gap-4"
               >
                 <input
                   type="hidden"
-                  name="service"
                   value={selectedService?.name || ""}
+                  {...register("service")}
                 />
+
                 <input
                   type="text"
-                  name="from_name"
-                  placeholder="Votre nom"
-                  required
+                  placeholder="Nom complet"
+                  {...register("from_name", { required: true })}
                   className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+                {errors.from_name && (
+                  <span className="text-red-500 text-sm">Nom requis</span>
+                )}
+
                 <input
                   type="email"
-                  name="from_email"
-                  placeholder="Votre email"
-                  required
+                  placeholder="Email"
+                  {...register("from_email", { required: true })}
                   className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
+                {errors.from_email && (
+                  <span className="text-red-500 text-sm">Email requis</span>
+                )}
+
                 <textarea
-                  name="message"
-                  placeholder="Décrivez votre projet..."
-                  required
-                  rows={4}
+                  placeholder="Message"
+                  {...register("message", { required: true })}
                   className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 ></textarea>
+                {errors.message && (
+                  <span className="text-red-500 text-sm">Message requis</span>
+                )}
 
                 <button
                   type="submit"
