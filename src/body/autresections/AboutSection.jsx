@@ -21,7 +21,7 @@ const points = [
 
 const AboutSection = () => {
   return (
-    <section className="bg-white py-20 px-6 lg:px-32" id="about">
+    <section className="bg-white py-20 px-6 lg:px-32" id="apropos">
       <motion.div
         className="text-center max-w-3xl mx-auto mb-16"
         initial={{ opacity: 0, y: 30 }}

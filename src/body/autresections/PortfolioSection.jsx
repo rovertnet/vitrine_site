@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -54,7 +54,7 @@ const projects = [
     description: "Site web pour la promotion d'événements.",
     details:
       "Calendrier interactif, inscription en ligne, galerie média et optimisation mobile.",
-    image: "https://rovert-tech.vercel.app/P6.png",
+    image: "https://rovert-tech.vercel.app/P6.png", // ⚠️ évite le 'P' majuscule
     link: "#",
     category: "Landing",
   },
@@ -84,7 +84,7 @@ const projects = [
     image: "https://rovert-tech.vercel.app/p9.png",
     link: "#",
     category: "Landing",
-  }
+  },
 ];
 
 const categories = ["Tous", "E-commerce", "Vitrine", "Landing"];
@@ -92,11 +92,19 @@ const categories = ["Tous", "E-commerce", "Vitrine", "Landing"];
 const PortfolioSection = () => {
   const [activeCategory, setActiveCategory] = useState("Tous");
   const [selectedProject, setSelectedProject] = useState(null);
+  const scrollerRef = useRef(null);
 
   const filteredProjects =
     activeCategory === "Tous"
       ? projects
       : projects.filter((p) => p.category === activeCategory);
+
+  // Revenir au début du carrousel quand on change de filtre (mobile)
+  useEffect(() => {
+    if (scrollerRef.current) {
+      scrollerRef.current.scrollTo({ left: 0, behavior: "smooth" });
+    }
+  }, [activeCategory]);
 
   return (
     <section className="bg-white py-20 px-6 lg:px-32">
@@ -126,16 +134,17 @@ const PortfolioSection = () => {
         ))}
       </div>
 
-      {/* Grille projets */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* === GRID DESKTOP === */}
+      <motion.div className="hidden md:grid grid-cols-3 gap-8">
         <AnimatePresence>
-          {filteredProjects.map((project, index) => (
+          {filteredProjects.map((project) => (
             <motion.div
               key={project.title}
               className="cursor-pointer rounded-2xl overflow-hidden shadow border border-gray-200 hover:shadow-md transition"
               onClick={() => setSelectedProject(project)}
               initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
@@ -155,6 +164,38 @@ const PortfolioSection = () => {
         </AnimatePresence>
       </motion.div>
 
+      {/* === CARROUSEL MOBILE/TABLET (sans lib) === */}
+      <div
+        ref={scrollerRef}
+        className="flex md:hidden overflow-x-auto space-x-4 snap-x snap-mandatory scroll-smooth px-2"
+      >
+        {filteredProjects.map((project, index) => (
+          <motion.button
+            key={project.title}
+            onClick={() => setSelectedProject(project)}
+            className="flex-shrink-0 w-72 rounded-2xl overflow-hidden shadow border border-gray-200 hover:shadow-md transition snap-center text-left"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.35, delay: index * 0.05 }}
+          >
+            <img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-44 object-cover"
+            />
+            <div className="p-4">
+              <h3 className="text-base font-semibold text-gray-900">
+                {project.title}
+              </h3>
+              <p className="text-sm text-gray-600 line-clamp-2">
+                {project.description}
+              </p>
+            </div>
+          </motion.button>
+        ))}
+      </div>
+
       {/* Modal */}
       <AnimatePresence>
         {selectedProject && (
@@ -167,15 +208,16 @@ const PortfolioSection = () => {
           >
             <motion.div
               className="bg-white max-w-lg w-full rounded-xl overflow-hidden shadow-lg relative p-6"
-              initial={{ scale: 0.8, y: 30 }}
+              initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.8, y: 30 }}
-              transition={{ duration: 0.3 }}
+              exit={{ scale: 0.9, y: 20 }}
+              transition={{ duration: 0.25 }}
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
                 onClick={() => setSelectedProject(null)}
+                aria-label="Fermer"
               >
                 <X className="w-5 h-5" />
               </button>

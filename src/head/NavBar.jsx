@@ -9,13 +9,19 @@ import {
   Phone,
 } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
-import logo from "../assets/logo.png"; // Assurez-vous que le chemin est correct
+import logo from "../assets/logo.png"; // Vérifie le chemin
 
-const sections = ["Accueil", "A propos", "Services", "Contact"];
+// ✅ Labels visibles + ids HTML cohérents
+const sections = [
+  { id: "accueil", label: "Accueil" },
+  { id: "apropos", label: "A propos" },
+  { id: "services", label: "Services" },
+  { id: "contact", label: "Contact" },
+];
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState("accueil");
 
   // === Scroll Spy Logic ===
   useEffect(() => {
@@ -29,7 +35,7 @@ export default function NavBar() {
       { rootMargin: "-50% 0px -40% 0px", threshold: 0.1 }
     );
 
-    sections.forEach((id) => {
+    sections.forEach(({ id }) => {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     });
@@ -37,8 +43,9 @@ export default function NavBar() {
     return () => observer.disconnect();
   }, []);
 
+  // === Scroll lissé ===
   const scrollTo = (id) => {
-    setIsOpen(false); // Ferme le menu mobile
+    setIsOpen(false);
     const el = document.getElementById(id);
     if (el) {
       window.scrollTo({
@@ -121,28 +128,28 @@ export default function NavBar() {
 
           {/* Menu desktop */}
           <ul className="hidden md:flex space-x-6 text-gray-600 font-medium">
-            {sections.map((sec) => (
-              <li key={sec}>
+            {sections.map(({ id, label }) => (
+              <li key={id}>
                 <button
-                  onClick={() => scrollTo(sec)}
+                  onClick={() => scrollTo(id)}
                   className={`block w-full text-left hover:text-gray-900 ${
-                    activeSection === sec ? "text-blue-600 font-bold" : ""
+                    activeSection === id ? "text-blue-600 font-bold" : ""
                   }`}
                 >
-                  {sec.charAt(0).toUpperCase() + sec.slice(1)}
+                  {label}
                 </button>
               </li>
             ))}
           </ul>
 
-          {/* Auth desktop */}
+          {/* CTA desktop */}
           <div className="hidden md:flex items-center space-x-4">
-            <a
-              href="#contact"
+            <button
+              onClick={() => scrollTo("contact")}
               className="bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition"
             >
               Contactez-nous
-            </a>
+            </button>
           </div>
 
           {/* Burger */}
@@ -166,31 +173,31 @@ export default function NavBar() {
               transition={{ duration: 0.3 }}
             >
               <ul className="space-y-2 text-gray-600 font-medium">
-                {sections.map((sec) => (
-                  <li key={sec}>
+                {sections.map(({ id, label }) => (
+                  <li key={id}>
                     <button
-                      onClick={() => scrollTo(sec)}
+                      onClick={() => scrollTo(id)}
                       className={`block w-full text-left hover:text-gray-900 ${
-                        activeSection === sec ? "text-blue-600 font-bold" : ""
+                        activeSection === id ? "text-blue-600 font-bold" : ""
                       }`}
                     >
-                      {sec.charAt(0).toUpperCase() + sec.slice(1)}
+                      {label}
                     </button>
                   </li>
                 ))}
               </ul>
 
               <div className="pt-2 border-t border-gray-200">
-                <a
-                  href="#contact"
+                <button
+                  onClick={() => scrollTo("contact")}
                   className="block w-full bg-blue-600 text-white text-center py-2 rounded-full hover:bg-blue-700"
                 >
                   Contactez-nous
-                </a>
+                </button>
               </div>
 
               {/* Réseaux sociaux animés */}
-              <div className="md:flex justify-center gap-4 mt-4 hidden ">
+              <div className="flex justify-center gap-4 mt-4">
                 {[Phone, Facebook, Instagram, Linkedin, Twitter].map(
                   (Icon, i) => (
                     <motion.a

@@ -4,7 +4,7 @@ const HeroSection = () => {
   return (
     <section
       className="bg-white pt-48 pb-14 px-6 lg:px-32 text-center lg:text-left"
-      id="home"
+      id="accueil"
     >
       <motion.div
         className="max-w-4xl mx-auto"

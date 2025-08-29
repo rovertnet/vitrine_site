@@ -65,31 +65,25 @@ const TarifsServices = () => {
     setIsOpen(true);
   };
 
-  // ✅ fonction pour gérer l'envoi
   const onSubmit = (data) => {
     emailjs
       .send(
-        "service_nxjmxah", // Service ID
-        "template_lxeffid", // Template ID
+        "service_nxjmxah",
+        "template_lxeffid",
         {
           from_name: data.from_name,
           from_email: data.from_email,
           message: data.message,
           service: selectedService?.name,
         },
-        "cPHGWeChbZcSymYzx" // Public Key
+        "cPHGWeChbZcSymYzx"
       )
-      .then(
-        () => {
-          toast.success("✅ Message envoyé avec succès !");
-          reset();
-          setIsOpen(false);
-        },
-        (error) => {
-          toast.error("❌ Une erreur est survenue, réessayez.");
-          console.error(error);
-        }
-      );
+      .then(() => {
+        toast.success("✅ Message envoyé avec succès !");
+        reset();
+        setIsOpen(false);
+      })
+      .catch(() => toast.error("❌ Une erreur est survenue, réessayez."));
   };
 
   return (
@@ -103,10 +97,15 @@ const TarifsServices = () => {
           devis personnalisé.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {services.map((svc) => (
-            <div
+        {/* ✅ GRID PC */}
+        <div className="hidden md:grid grid-cols-3 gap-8">
+          {services.map((svc, index) => (
+            <motion.div
               key={svc.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
               className="bg-white rounded-2xl shadow-lg p-6 flex flex-col border border-gray-200 hover:shadow-2xl transition"
             >
               <h3 className="text-xl font-semibold text-black mb-2">
@@ -122,12 +121,40 @@ const TarifsServices = () => {
               >
                 Demander un devis
               </button>
-            </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ✅ CARROUSEL MOBILE/TABLET */}
+        <div className="flex md:hidden overflow-x-auto space-x-4 snap-x snap-mandatory scroll-smooth px-2">
+          {services.map((svc, index) => (
+            <motion.div
+              key={svc.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: index * 0.1 }}
+              className="flex-shrink-0 w-72 bg-white rounded-2xl shadow-lg p-6 flex flex-col border border-gray-200 hover:shadow-2xl transition snap-center"
+            >
+              <h3 className="text-lg font-semibold text-black mb-2">
+                {svc.name}
+              </h3>
+              <p className="text-blue-600 font-bold text-xl mb-3">
+                {svc.price}
+              </p>
+              <p className="text-gray-800 mb-4">{svc.description}</p>
+              <button
+                onClick={() => handleOpenPopup(svc)}
+                className="mt-auto bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+              >
+                Demander un devis
+              </button>
+            </motion.div>
           ))}
         </div>
       </div>
 
-      {/* Pop-up */}
+      {/* ✅ Pop-up */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
