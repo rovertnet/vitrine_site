@@ -10,7 +10,7 @@ const NewsletterPopup = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setIsOpen(true);
-    }, 30000); // 30s
+    }, 300000); // 30s
 
     return () => clearInterval(interval);
   }, []);

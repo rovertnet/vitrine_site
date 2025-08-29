@@ -4,28 +4,52 @@ import { X } from "lucide-react";
 
 const teamMembers = [
   {
-    name: "Sarah Lemoine",
-    role: "Développeuse Front-end",
+    name: "Robert Matundu",
+    role: "Développeur Front-end",
     shortBio: "Spécialiste React & UI moderne.",
     longBio:
-      "Sarah conçoit des interfaces performantes, responsives et accessibles. Elle travaille sur React, Tailwind CSS et optimise chaque détail UX.",
-    image: "https://i.pravatar.cc/150?img=47",
+      "Robert conçoit des interfaces performantes, responsives et accessibles. il travaille sur React, Tailwind CSS et optimise chaque détail UX.",
+    image: "https://i.pravatar.cc/150?img=59",
   },
   {
-    name: "Yann Mumba",
+    name: "Plamedie zawadi",
     role: "Designer UI/UX",
     shortBio: "Créateur d’expériences visuelles.",
     longBio:
       "Yann imagine des designs élégants et centrés utilisateur. Il maîtrise Figma, l’identité visuelle, les wireframes et le design system.",
-    image: "https://i.pravatar.cc/150?img=31",
+    image: "https://i.pravatar.cc/150?img=56",
   },
   {
-    name: "Claire Makiadi",
-    role: "Cheffe de projet",
+    name: "Rabby kikwele",
+    role: "Chef de projet",
     shortBio: "Pilote de projets web stratégiques.",
     longBio:
-      "Claire gère les plannings, les équipes et les objectifs client avec méthode. Son expérience garantit des livrables fiables et dans les délais.",
-    image: "https://i.pravatar.cc/150?img=11",
+      "Rabby gère les plannings, les équipes et les objectifs client avec méthode. Son expérience garantit des livrables fiables et dans les délais.",
+    image: "https://i.pravatar.cc/150?img=57",
+  },
+  {
+    name: "Alice Dupont",
+    role: "Développeuse Back-end",
+    shortBio: "Experte en bases de données et API.",
+    longBio:
+      "Alice construit des serveurs robustes et sécurisés. Elle maîtrise Node.js, Express, et les bases de données SQL/NoSQL.",
+    image: "https://i.pravatar.cc/150?img=58",
+  },
+  {
+    name: "Sophie Martin",
+    role: "Spécialiste SEO",
+    shortBio: "Optimisatrice de visibilité web.",
+    longBio:
+      "Sophie améliore le référencement naturel des sites. Elle analyse les mots-clés, optimise le contenu et suit les performances SEO.",
+    image: "https://i.pravatar.cc/150?img=60",
+  },
+  {
+    name: "Julien Bernard",
+    role: "Ingénieur DevOps",
+    shortBio: "Automatisation et déploiement continu.",
+    longBio:
+      "Julien met en place des pipelines CI/CD efficaces. Il gère les infrastructures cloud et assure la scalabilité des applications.",
+    image: "https://i.pravatar.cc/150?img=61",
   },
 ];
 

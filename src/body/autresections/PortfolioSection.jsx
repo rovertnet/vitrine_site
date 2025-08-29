@@ -31,6 +31,60 @@ const projects = [
     link: "#",
     category: "Landing",
   },
+  {
+    title: "Blog tech",
+    description: "Plateforme de blog moderne avec CMS headless.",
+    details:
+      "Fonctionnalités de publication, gestion des utilisateurs, commentaires et design épuré.",
+    image: "https://rovert-tech.vercel.app/p4.png",
+    link: "#",
+    category: "Vitrine",
+  },
+  {
+    title: "Application de gestion",
+    description: "Outil web pour la gestion de projets et tâches.",
+    details:
+      "Tableaux de bord, collaboration en temps réel, notifications et intégrations tierces.",
+    image: "https://rovert-tech.vercel.app/p5.png",
+    link: "#",
+    category: "E-commerce",
+  },
+  {
+    title: "Site événementiel",
+    description: "Site web pour la promotion d'événements.",
+    details:
+      "Calendrier interactif, inscription en ligne, galerie média et optimisation mobile.",
+    image: "https://rovert-tech.vercel.app/p6.png",
+    link: "#",
+    category: "Landing",
+  },
+  {
+    title: "Application de recettes",
+    description: "Plateforme pour découvrir et partager des recettes.",
+    details:
+      "Recherche avancée, favoris, commentaires et interface utilisateur intuitive.",
+    image: "https://rovert-tech.vercel.app/p7.png",
+    link: "#",
+    category: "Vitrine",
+  },
+  {
+    title: "Site de voyage",
+    description: "Site web pour agences de voyage et tours.",
+    details:
+      "Itinéraires, réservations en ligne, témoignages clients et design immersif.",
+    image: "https://rovert-tech.vercel.app/p8.png",
+    link: "#",
+    category: "E-commerce",
+  },
+  {
+    title: "Application fitness",
+    description: "Outil pour suivre les entraînements et la nutrition.",
+    details:
+      "Plans d'entraînement, suivi des progrès, conseils nutritionnels et communauté intégrée.",
+    image: "https://rovert-tech.vercel.app/p9.png",
+    link: "#",
+    category: "Landing",
+  }
 ];
 
 const categories = ["Tous", "E-commerce", "Vitrine", "Landing"];
