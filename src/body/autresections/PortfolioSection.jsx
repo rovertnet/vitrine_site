@@ -54,7 +54,7 @@ const projects = [
     description: "Site web pour la promotion d'événements.",
     details:
       "Calendrier interactif, inscription en ligne, galerie média et optimisation mobile.",
-    image: "https://rovert-tech.vercel.app/p6.png",
+    image: "https://rovert-tech.vercel.app/P6.png",
     link: "#",
     category: "Landing",
   },
