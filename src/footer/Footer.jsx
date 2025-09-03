@@ -40,7 +40,7 @@ const Footer = () => {
       </div>
       <p className="text-gray-400 text-sm text-center pt-10">
         © {new Date().getFullYear()}{" "}
-        <a href="https://rovertnet.vercel.app/">RovertNet.</a> Tous droits
+        <a href="https://rovertnet.vercel.app/" className="cursor-pointer">RovertNet.</a> Tous droits
         réservés.
       </p>
     </footer>
